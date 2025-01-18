@@ -156,10 +156,35 @@ const Login = ({ isUserAuthenticated }) => {
     }
   };
   const handleTestUserLogin = async () => {
-      toast.success('Login Successful!');
-      navigate('/'); 
-    
+    try {
+      // Call the testUser API
+      const testUserResponse = await API.testUser();
+  
+      // Handle the response from the testUser API
+      if (testUserResponse.isSuccess) {
+        showError('');
+  
+        sessionStorage.setItem('accessToken', `Bearer ${testUserResponse.data.accessToken}`);
+        sessionStorage.setItem('refreshToken', `Bearer ${testUserResponse.data.refreshToken}`);
+        setAccount({
+          name: testUserResponse.data.name,
+          username: testUserResponse.data.username,
+        });
+  
+        isUserAuthenticated(true);
+        toast.success('You are now a Test User!');
+  
+        setLogin(loginInitialValues);
+        navigate('/');
+      } else {
+        showError(testUserResponse.data.msg || 'Something went wrong!');
+      }
+    } catch (error) {
+      console.error('Error during test user login:', error);
+      toast.success('Logging you in...');
+    }
   };
+  
   
 
   const signupUser = async () => {
@@ -183,6 +208,8 @@ const Login = ({ isUserAuthenticated }) => {
   const toggleSignup = () => {
     account === 'signup' ? toggleAccount('login') : toggleAccount('signup');
   };
+
+ 
 
 
   return (
