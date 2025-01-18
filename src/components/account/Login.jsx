@@ -181,7 +181,7 @@ const Login = ({ isUserAuthenticated }) => {
       }
     } catch (error) {
       console.error('Error during test user login:', error);
-      toast.success('Logging you in...');
+      toast.error('Failed to log in as Test User');
     }
   };
   
