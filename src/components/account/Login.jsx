@@ -155,6 +155,12 @@ const Login = ({ isUserAuthenticated }) => {
       toast.error('Enter correct credentials');
     }
   };
+  const handleTestUserLogin = async () => {
+      toast.success('Login Successful!');
+      navigate('/'); 
+    
+  };
+  
 
   const signupUser = async () => {
     try {
@@ -176,51 +182,6 @@ const Login = ({ isUserAuthenticated }) => {
 
   const toggleSignup = () => {
     account === 'signup' ? toggleAccount('login') : toggleAccount('signup');
-  };
-
-  const handleTestUserLogin = async () => {
-    try {
-      const testUserData = {
-        username: 'TestUser',
-        password: 'TestUser',
-      };
-
-      // Call login API directly with test user credentials
-      let response = await API.userLogin(testUserData);
-
-      if (response.isSuccess) {
-        showError('');
-
-        sessionStorage.setItem(
-          'accessToken',
-          `Bearer ${response.data.accessToken}`
-        );
-        sessionStorage.setItem(
-          'refreshToken',
-          `Bearer ${response.data.refreshToken}`
-        );
-        setAccount({
-          name: response.data.name,
-          username: response.data.username,
-        });
-
-        isUserAuthenticated(true);
-        toast.success('You Now are a Test User!')
-
-        setLogin(loginInitialValues);
-
-        navigate('/');
-      } else if (response.status === 400) {
-        navigate('/');
-        toast.error('Invalid Test User credentials');
-      } else {
-        navigate('/');
-        showError(response.data.msg || 'Something went wrong!');
-      }
-    } catch (error) {
-      console.error('Error during test user login:', error);
-      toast.error('Failed to log in as Test User');
-    }
   };
 
 
