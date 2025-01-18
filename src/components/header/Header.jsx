@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AppBar, Toolbar, styled, Button, IconButton, Drawer, List, ListItem } from '@mui/material';
+import { AppBar, Toolbar, styled, Button, IconButton, Drawer, List} from '@mui/material';
 import { Link } from 'react-router-dom';
 import { Menu as MenuIcon } from '@mui/icons-material';
 import { useTheme } from '../../context/ThemeProvider';  // Import your custom hook

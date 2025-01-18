@@ -70,8 +70,6 @@ const initialPost = {
 const Update = () => {
     const navigate = useNavigate();
     const { id } = useParams();
-    const { isDarkMode } = useContext(ThemeContext);
-
     const [post, setPost] = useState(initialPost);
     const [file, setFile] = useState('');
 
